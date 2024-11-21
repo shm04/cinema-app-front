@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMovies } from '../redux/slices/cinemaSlice';
+import { Link } from 'react-router-dom';
 
-const MoviesList = () => {
+const MoviesView = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.cinema.movies);
   const [selectedCinema, setSelectedCinema] = useState(null);
-  const [cinemas, setCinemas] = useState([]); // Lista de cines disponibles
-
-  // Fetch para obtener los cines al cargar el componente
+  const [cinemas, setCinemas] = useState([]);
+      
   useEffect(() => {
     const fetchCinemas = async () => {
       try {
@@ -23,7 +23,6 @@ const MoviesList = () => {
     fetchCinemas();
   }, []);
 
-  // Fetch para obtener las películas del cine seleccionado
   useEffect(() => {
     if (!selectedCinema) return;
 
@@ -62,7 +61,9 @@ const MoviesList = () => {
         <ul>
           {movies.map((movie) => (
             <li key={movie.id}>
-              <h3>{movie.title}</h3>
+              <h3>
+                <Link to={`/movies/${movie.id}`} state={{ cinemaId: selectedCinema}}>{movie.title}</Link>
+              </h3>
               <p>{movie.description}</p>
               <p>{movie.duration}</p>
               <p>{movie.genre}</p>
@@ -76,4 +77,4 @@ const MoviesList = () => {
   );
 };
 
-export default MoviesList;
+export default MoviesView;

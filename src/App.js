@@ -1,16 +1,19 @@
 import React from 'react';
-import MoviesList from './components/MoviesList';
-// import CinemasList from './components/CinemasList';
-// import RoomsList from './components/RoomsList';
-// import SeatsList from './components/SeatsList';
-// import ShowsList from './components/ShowsList';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MoviesView from './views/MoviesView';
+import MovieDetails from './views/MovieDetails';
+import RoomDetails from './views/RoomDetails';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <MoviesList />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MoviesView />} />
+        <Route path="/movies/:id" element={<MovieDetails />} />
+        <Route path="/movies/:id/rooms/:roomId" element={<RoomDetails />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
